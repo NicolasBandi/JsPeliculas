@@ -1,0 +1,167 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Roboto:ital,wght@0,400;0,500;1,500&display=swap");
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+.bgcolor{
+    background-color:violet;
+}
+
+  h1 , h2 , h3, h4{
+  text-align: center;
+  font-weight: 400;
+  line-height: 3rem;
+  font-family: "Roboto", sans-serif;
+  }
+
+header {
+    width: 100%;
+    display: flex;    
+    align-items: center;
+    margin: auto;
+    justify-content: space-around;
+    height: 90px;
+    position: sticky;
+    background-color: violet;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0px 1px grey;  
+}
+
+header nav {
+    margin-top: 4px;
+}
+
+.fab-fa-instagram{
+    text-decoration: none;
+}
+
+
+header nav ul{
+    display:flex;
+    align-items: center; 
+    
+}
+
+header nav ul li{
+    list-style-type: none;
+    margin: 60px;
+}
+
+
+header nav ul li a{
+    text-decoration: none;
+    color:black;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 5px;
+    margin: 5px;
+    letter-spacing: 1px;    
+}
+
+
+.menu a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.menu .button {
+    cursor: pointer;
+    }
+
+    
+footer{
+color: white;
+background-color: black;
+padding: 2% 0 2% 0;
+width: 100%;
+}
+footer nav ul{
+display: flex;
+justify-content: flex-end;
+            
+}
+footer nav ul li{
+list-style-type: none;
+color: white;
+}
+        
+footer div ul li {
+list-style-type: none;
+padding-bottom: 1rem;
+}
+        
+footer div ul li a {
+font-size: 1rem;
+list-style-type: none;
+color: white;
+word-spacing: 10px;
+}
+        
+footer div ul li a:hover {
+text-decoration: none;
+color: cornflowerblue;
+}
+        
+.btn-dark {
+ background-color: black;
+border-color: transparent;
+transition: all 0.8s;
+color: white;
+}
+        
+.btn-dark:hover {
+background-color: grey;
+color: white;
+border-color: transparent;
+}
+        
+.form-control {
+ width: 15rem;
+}
+        
+.fot {
+justify-content: space-evenly;
+}
+        
+.redes-footer {
+align-content: center;
+}
+        
+.copy {
+background-color: black;
+color: white;
+display: flex;
+justify-content: center;
+align-content: center;
+text-align: center;
+font-size: 1.2rem;
+padding: 5px;
+}
+        
+.copy p {
+margin: 0;
+}
+        
+.back-tienda h1{
+margin: 30px;
+}
+
+.formulario1{
+    width: 190px;
+}
+
+.formulario2{
+    width: 250px;
+}
+
+
+@media (max-width: 800px) {
+.back-tienda {
+height: auto;
+}
+}
