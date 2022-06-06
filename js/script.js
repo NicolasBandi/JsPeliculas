@@ -1,4 +1,4 @@
-console.log ("Segunda Entrega Trabajo Final - Nicolas Pablo Ivan Pedicino")
+console.log ("Librerias, road to proyecto final- Nicolas Pablo Ivan Pedicino")
 
 //---------------------------------------------------
 
@@ -6,6 +6,7 @@ console.log ("Segunda Entrega Trabajo Final - Nicolas Pablo Ivan Pedicino")
 console.table(peliculas)
 
 let carrito=[]
+let filtroPeliculas=[]
 
 if(localStorage.getItem("carrito")!=null){
    carrito=JSON.parse(localStorage.getItem("carrito"));
@@ -45,21 +46,22 @@ function imprimirProductosEnHTML(peliculas) {
 }
 //---------------------------------------------------
 
-//intento de filtro// No anda xD//
-
-const busqueda = document.querySelector('#buscador');
-const resultado = document.querySelector('.pelicula');
+//Filtro
+const busqueda = document.querySelector('#buscar');
+const resultado = document.querySelector('.peliculas');
 console.log(resultado);
 
 
 const filtrar = ()=>{
    resultado.innerHTML=''
 
-   const texto = busqueda.value();
-
+   const texto = busqueda.value.toLowerCase();
+   filtroPeliculas=[]
    for (let pelicula of peliculas) {
      let card = document.createElement("div");
+     let nombre = pelicula.nombre.toLowerCase();
      if (nombre.indexOf(texto) !== -1){
+      filtroPeliculas.push(pelicula)
        card.innerHTML = `
        <div  id= "card" class="card text-center" style="width: 20rem; height=30rem" >
             <div class="card-body">
@@ -73,17 +75,18 @@ const filtrar = ()=>{
             </div>
         </div>        
          ` 
-         resultado.appendChild(card);
+         resultado.append(card);
     
   };
+} 
+console.log (filtroPeliculas)
+    filtroPeliculas.forEach(pelicula => {
+    document.getElementById(`btn${pelicula.id}`).addEventListener('click', function() {
+    console.log ()
+    agregarAlCarrito(pelicula);
+   });
+ });
 }
-      if (resultado.innerHTML === ''){
-        let noLaTengo = document.createElement("div");
-        noLaTengo.pelicula.nombre = "noLaTengo"
-        noLaTengo.innerHTML = `<h3> La pelicula aun no llego a nuestro catalogo ... </h3>`
-        resultado.appendChild(noLaTengo);
-      }
-    }
  busqueda.addEventListener('keyup', filtrar);
 
 //---------------------------------------------------
@@ -93,7 +96,11 @@ const filtrar = ()=>{
 function agregarAlCarrito(nuevaPelicula) {
    carrito.push(nuevaPelicula);
    console.log(carrito);
-   alert("Agregamos la pelicula "+nuevaPelicula.nombre+" al carrito!")
+   Swal.fire(
+      "Producto: "+nuevaPelicula.nombre,
+      "agregado al carrito",
+      "success"
+    );
    document.getElementById("tabla").innerHTML+=`
    <tr>
        <td>${nuevaPelicula.formato}</td>
@@ -102,7 +109,8 @@ function agregarAlCarrito(nuevaPelicula) {
    </tr>`;
    localStorage.setItem("carrito",JSON.stringify(carrito));
 }
-//---------------------------------------------------
+
+
 
 //funcion para el json asi queda el carrito cargado
 
@@ -120,5 +128,30 @@ function actualizarTabla (){
 //---------------------------------------------------
 
 
+//-botones del carrito
+let finalizar=document.getElementById("finalizar");
+finalizar.onclick=()=>{
+    Swal.fire({
+      title: 'Pedido confirmado !',
+      text: 'Será preparado a la brevedad',
+    })
+    eliminarFila()
+    
+}
 
+let borrarCarrito =document.getElementById("borrarCarrito");
+borrarCarrito.onclick=()=>{
+   eliminarFila()
+    Swal.fire({
+        title: 'Se Ha vaciado el carrito de compras!',
+    });
+   }
+   
+function eliminarFila(){
+   tabla.innerHTML=""
+   carrito= []
+   localStorage.setItem("carrito",JSON.stringify(carrito))
+   
+
+}
   
