@@ -28,6 +28,8 @@
  
  <main>    
     <h1> Peliculas </h1>
+    
+    </div>
        <div class="peliculas"
         id="contenedor"
         style="display: flex; flex-wrap: wrap; margin-left: 10%" 
@@ -44,10 +46,14 @@
           </thead>
           <tbody id="tabla"></tbody>
         </table>
+        <div>
+            <h3 id="precioTotal"> Total: $</h3>
+        </div>
         <span class="botonesCarro">
-        <button id="finalizar" style="margin-left: 10px" center class="btn btn-success">Finalizar compra</button>
+        <button id="finalizar" id="pedido" style="margin-left: 10px" center class="btn btn-success">Finalizar compra</button>
         <button id="borrarCarrito" style="margin-left: 10px" class="btn btn-danger">Borrar Carrito</button>
-    </span>
+     </span>
+
  </main>
 
  <footer class="fot container-fluid d-flex">
@@ -79,6 +85,7 @@
 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="js/objetos.js"></script>
+<script src="objetos.json"></script>
 <script src="js/script.js"></script>
 
  

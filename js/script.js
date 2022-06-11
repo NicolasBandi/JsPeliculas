@@ -1,12 +1,11 @@
 console.log ("Librerias, road to proyecto final- Nicolas Pablo Ivan Pedicino")
 
 //---------------------------------------------------
-
-
 console.table(peliculas)
 
 let carrito=[]
 let filtroPeliculas=[]
+let productosJSON = [];
 
 if(localStorage.getItem("carrito")!=null){
    carrito=JSON.parse(localStorage.getItem("carrito"));
@@ -16,10 +15,11 @@ if(localStorage.getItem("carrito")!=null){
 }
 imprimirProductosEnHTML(peliculas);
 
-function imprimirProductosEnHTML(peliculas) {
+function imprimirProductosEnHTML() {
+console.log(productosJSON)
   let contenedor = document.getElementById("contenedor");
 
-  for (const pelicula of peliculas) {
+  for (const pelicula of productosJSON) {
     let card = document.createElement("div");
 
     card.innerHTML = `
@@ -37,14 +37,77 @@ function imprimirProductosEnHTML(peliculas) {
         `;
     contenedor.append(card);
   }
-    peliculas.forEach(pelicula => {
+  for (const pelicula of productosJSON) {
     document.getElementById(`btn${pelicula.id}`).addEventListener('click', function() {
        agregarAlCarrito(pelicula);
      });
-   });
+   };
 
 }
+
+class Pelicula{
+    constructor(pelicula) {
+        this.id = pelicula.id;
+        this.nombre = pelicula.nombre;
+        this.formato= pelicula.formato;
+        this.precio = pelicula.precio;
+        this.imagen =pelicula.imagen
+        this.cantidad = 1;
+    }
+}
 //---------------------------------------------------
+
+ //agregar al carrito
+
+ function agregarAlCarrito(nuevaPelicula) {
+    let encontrado = carrito.find(p => p.id == nuevaPelicula.id);
+    console.log(encontrado);
+    if (encontrado == undefined) {
+     let peliculaCarrito= new Pelicula (nuevaPelicula);
+   carrito.push(peliculaCarrito);
+   console.log(carrito);
+   Swal.fire(
+      "Pelicula: "+nuevaPelicula.nombre,
+      "Se agrego al carrito",
+      "success"
+    );
+   document.getElementById("tabla").innerHTML+=`
+   <tr>
+       <td>${peliculaCarrito.formato}</td>
+       <td>${peliculaCarrito.nombre}</td>
+       <td>${peliculaCarrito.precio}</td>
+   </tr>`;
+   localStorage.setItem("carrito",JSON.stringify(carrito));
+
+}else {
+    //pido al carro la posicion del producto 
+    let posicion = carrito.findIndex(p => p.id == nuevaPelicula.id);
+    carrito[posicion].cantidad += 1;
+    document.getElementById(nuevaPelicula.id).innerHTML=carrito[posicion].cantidad;
+}
+document.querySelector("#precioTotal").innerText=(`Total: $ ${calcularTotal()}`);
+}
+
+function calcularTotal() {
+    let suma = 0;
+    for (const pelicula of carrito) {
+        suma = suma + (pelicula.precio * pelicula.cantidad);
+    }
+    return suma;
+}
+
+//funcion para el json asi queda el carrito cargado
+
+function actualizarTabla (){
+    for (const pelicula of carrito){
+       document.getElementById("tabla").innerHTML+=`
+       <tr>
+       <td>${pelicula.formato}</td>
+       <td>${pelicula.nombre}</td>
+       <td>${pelicula.precio}</td>
+   </tr>`;
+    }document.querySelector("#precioTotal").innerText=(`Total: $ ${calcularTotal()}`);
+ }
 
 //Filtro
 const busqueda = document.querySelector('#buscar');
@@ -91,43 +154,6 @@ console.log (filtroPeliculas)
 
 //---------------------------------------------------
 
- //agregar al carrito
-
-function agregarAlCarrito(nuevaPelicula) {
-   carrito.push(nuevaPelicula);
-   console.log(carrito);
-   Swal.fire(
-      "Producto: "+nuevaPelicula.nombre,
-      "agregado al carrito",
-      "success"
-    );
-   document.getElementById("tabla").innerHTML+=`
-   <tr>
-       <td>${nuevaPelicula.formato}</td>
-       <td>${nuevaPelicula.nombre}</td>
-       <td>${nuevaPelicula.precio}</td>
-   </tr>`;
-   localStorage.setItem("carrito",JSON.stringify(carrito));
-}
-
-
-
-//funcion para el json asi queda el carrito cargado
-
-function actualizarTabla (){
-   for (const pelicula of carrito){
-      document.getElementById("tabla").innerHTML+=`
-      <tr>
-      <td>${pelicula.formato}</td>
-      <td>${pelicula.nombre}</td>
-      <td>${pelicula.precio}</td>
-  </tr>`;
-   }
-}
-
-//---------------------------------------------------
-
-
 //-botones del carrito
 let finalizar=document.getElementById("finalizar");
 finalizar.onclick=()=>{
@@ -144,6 +170,7 @@ borrarCarrito.onclick=()=>{
    eliminarFila()
     Swal.fire({
         title: 'Se Ha vaciado el carrito de compras!',
+        
     });
    }
    
@@ -151,7 +178,25 @@ function eliminarFila(){
    tabla.innerHTML=""
    carrito= []
    localStorage.setItem("carrito",JSON.stringify(carrito))
-   
+   document.querySelector("#precioTotal").innerText=(`Total: $ ${calcularTotal()}`);
 
 }
-  
+
+//GETJSON de productos.json
+
+document.addEventListener(`DOMContentLoaded`, ()  =>{
+    fechtData()
+    console.log(fechtData)
+})
+
+const fechtData= async ()=>{
+ try {
+    const URLJSON="/objetos.json"
+    const resp=await fetch("objetos.json")
+    const data= await resp.json()
+    productosJSON = data;
+    imprimirProductosEnHTML();
+ }catch (error){
+    console.log(error)
+}
+}
