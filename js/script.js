@@ -1,4 +1,4 @@
-console.log ("Librerias, road to proyecto final- Nicolas Pablo Ivan Pedicino")
+console.log ("Ultima Entrega antes del proyecto final- Nicolas Pablo Ivan Pedicino")
 
 //---------------------------------------------------
 console.table(peliculas)
@@ -7,12 +7,25 @@ let carrito=[]
 let filtroPeliculas=[]
 let productosJSON = [];
 
+class Pelicula{
+    constructor(pelicula) {
+        this.id = pelicula.id;
+        this.nombre = pelicula.nombre;
+        this.formato= pelicula.formato;
+        this.precio = pelicula.precio;
+        this.imagen =pelicula.imagen;
+        this.cantidad = 1;
+    }
+
+}
+
 if(localStorage.getItem("carrito")!=null){
    carrito=JSON.parse(localStorage.getItem("carrito"));
    actualizarTabla()
 }else{
    carrito=[]
 }
+
 imprimirProductosEnHTML(peliculas);
 
 function imprimirProductosEnHTML() {
@@ -45,16 +58,7 @@ console.log(productosJSON)
 
 }
 
-class Pelicula{
-    constructor(pelicula) {
-        this.id = pelicula.id;
-        this.nombre = pelicula.nombre;
-        this.formato= pelicula.formato;
-        this.precio = pelicula.precio;
-        this.imagen =pelicula.imagen
-        this.cantidad = 1;
-    }
-}
+
 //---------------------------------------------------
 
  //agregar al carrito
@@ -75,15 +79,22 @@ class Pelicula{
    <tr>
        <td>${peliculaCarrito.formato}</td>
        <td>${peliculaCarrito.nombre}</td>
+       <td id='${peliculaCarrito.id}'> ${peliculaCarrito.cantidad}</td>
        <td>${peliculaCarrito.precio}</td>
+       
    </tr>`;
    localStorage.setItem("carrito",JSON.stringify(carrito));
 
 }else {
-    //pido al carro la posicion del producto 
     let posicion = carrito.findIndex(p => p.id == nuevaPelicula.id);
     carrito[posicion].cantidad += 1;
+    Swal.fire(
+        "Se agrego otra unidad de "+nuevaPelicula.nombre,
+        "Se agrego al carrito",
+        "success"
+      );
     document.getElementById(nuevaPelicula.id).innerHTML=carrito[posicion].cantidad;
+    localStorage.setItem("carrito",JSON.stringify(carrito));
 }
 document.querySelector("#precioTotal").innerText=(`Total: $ ${calcularTotal()}`);
 }
@@ -104,6 +115,7 @@ function actualizarTabla (){
        <tr>
        <td>${pelicula.formato}</td>
        <td>${pelicula.nombre}</td>
+       <td id='${pelicula.id}'> ${pelicula.cantidad}</td>
        <td>${pelicula.precio}</td>
    </tr>`;
     }document.querySelector("#precioTotal").innerText=(`Total: $ ${calcularTotal()}`);
@@ -133,7 +145,7 @@ const filtrar = ()=>{
                 <h5 class="card-subtitle mb-2 text-muted">${pelicula.formato}</h5>
                 <p class="card-text">$${pelicula.precio}</p>
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                <button id="btn${peliculas.id}" type="button" class="btn btn-dark">Comprar Pelicula </button>
+                <button id="btn${pelicula.id}" type="button" class="btn btn-dark">Comprar Pelicula </button>
                 </div>
             </div>
         </div>        

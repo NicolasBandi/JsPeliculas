@@ -22,11 +22,14 @@
     
         <li class="menu">
          <input type="text" name="buscar" id="buscar" class="form-control buscar" maxlength="30" placeholder="Buscar Pelicula.."/>
+         <li class="menu buscador">
+            <a  href="index.html#carritoCompras" class="terms button" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-shopping-cart"></i></a>
          </li>
          </ul>
 </header>
  
- <main>    
+ <main>   
+    <br> 
     <h1> Peliculas </h1>
     
     </div>
@@ -35,12 +38,13 @@
         style="display: flex; flex-wrap: wrap; margin-left: 10%" 
       ></div>
 
-     <h4>Tu carrito:</h4>
+     <h4 id="carritoCompras">Tu carrito:</h4>
         <table class="table table-striped">
           <thead>
               <tr>
                   <th scope="col">Formato</th>
                   <th scope="col">Pelicula</th>
+                  <th scope="col">Cantidad</th>
                   <th scope="col">Precio</th>
               </tr>
           </thead>
@@ -54,8 +58,9 @@
         <button id="borrarCarrito" style="margin-left: 10px" class="btn btn-danger">Borrar Carrito</button>
      </span>
 
- </main>
 
+ </main>
+<br>
  <footer class="fot container-fluid d-flex">
   <div class="row">
           <form action="" name= "formulario" method="POST">             
@@ -67,7 +72,7 @@
                   <label for="textarea">Consulta:
                   <textarea class="form-control" name="texto" id="texto" rows="1" placeholder="Escribinos tu consulta"></textarea></label>
               </div>                        
-                  <input type="submit" class="botoncito" id="btn" name="btn" class="btn btn-dark" value="Enviar !">
+                  <input type="submit" class="botoncito" id="btn" name="btn" class="btn btn-dark" value="Enviar !" >
           </form>
   </div>
 
