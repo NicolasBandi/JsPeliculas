@@ -1,4 +1,4 @@
-console.log ("Ultima Entrega antes del proyecto final- Nicolas Pablo Ivan Pedicino")
+console.log ("Proyecto Final Js Coderhouse- Nicolas Pablo Ivan Pedicino")
 
 //---------------------------------------------------
 console.table(peliculas)
@@ -6,6 +6,8 @@ console.table(peliculas)
 let carrito=[]
 let filtroPeliculas=[]
 let productosJSON = [];
+
+//Constructor Pelicula
 
 class Pelicula{
     constructor(pelicula) {
@@ -26,6 +28,7 @@ if(localStorage.getItem("carrito")!=null){
    carrito=[]
 }
 
+//llamo a mis cards
 imprimirProductosEnHTML(peliculas);
 
 function imprimirProductosEnHTML() {
@@ -61,7 +64,7 @@ console.log(productosJSON)
 
 //---------------------------------------------------
 
- //agregar al carrito
+ //Agregar al carrito
 
  function agregarAlCarrito(nuevaPelicula) {
     let encontrado = carrito.find(p => p.id == nuevaPelicula.id);
@@ -99,6 +102,8 @@ console.log(productosJSON)
 document.querySelector("#precioTotal").innerText=(`Total: $ ${calcularTotal()}`);
 }
 
+//Funcion Suma Total
+
 function calcularTotal() {
     let suma = 0;
     for (const pelicula of carrito) {
@@ -121,7 +126,8 @@ function actualizarTabla (){
     }document.querySelector("#precioTotal").innerText=(`Total: $ ${calcularTotal()}`);
  }
 
-//Filtro
+
+//Filtro Busqueda de Peliculas
 const busqueda = document.querySelector('#buscar');
 const resultado = document.querySelector('.peliculas');
 console.log(resultado);
@@ -167,23 +173,35 @@ console.log (filtroPeliculas)
 //---------------------------------------------------
 
 //-botones del carrito
-let finalizar=document.getElementById("finalizar");
-finalizar.onclick=()=>{
+
+const btnfinalizar = document.getElementById('finalizar')
+btnfinalizar.addEventListener('click', ()=> {
+  if ((carrito).length !== 0){
     Swal.fire({
-      title: 'Pedido confirmado !',
-      text: 'Será preparado a la brevedad',
+      title: "Pedido confirmado",
+      text: "Pornto disfrutaras del cine en tu casa",
+      icon: 'success',
     })
-    eliminarFila()
-    
-}
+    eliminarFila ()
+  }else{
+    Swal.fire({
+      title: 'No Podemos Aceptar La solicitud ',
+      text: 'Debes llenar tu carrito!',
+      imageUrl: 'https://c.tenor.com/SB7g0zs9y6YAAAAM/jurassic-park.gif',
+    })
+
+  }
+ carrito()
+})
 
 let borrarCarrito =document.getElementById("borrarCarrito");
 borrarCarrito.onclick=()=>{
    eliminarFila()
     Swal.fire({
-        title: 'Se Ha vaciado el carrito de compras!',
+        title: 'Carrito Vacio!',
         
     });
+    
    }
    
 function eliminarFila(){
