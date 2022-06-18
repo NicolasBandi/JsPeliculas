@@ -1,2 +1,2 @@
 # JsPeliculas
-Trabajo para coderhouse Javascript Version 1. Dom, Eventos, storage/JSON
+Trabajo para coderhouse Javascript Entrega Final
