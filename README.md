@@ -1,2 +1,2 @@
 # JsPeliculas
-Trabajo para coderhouse Javascript Entrega Final
+Trabajo Para Coderhouse Javascript; Entrega Final
