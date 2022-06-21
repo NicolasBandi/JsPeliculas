@@ -189,7 +189,6 @@ btnfinalizar.addEventListener('click', ()=> {
     })
 
   }
- carrito()
 })
 
 let borrarCarrito =document.getElementById("borrarCarrito");
