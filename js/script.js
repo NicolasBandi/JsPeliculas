@@ -4,7 +4,6 @@ console.log ("Proyecto Final Js Coderhouse- Nicolas Pablo Ivan Pedicino")
 console.table(peliculas)
 
 let carrito=[]
-let filtroPeliculas=[]
 let productosJSON = [];
 
 //Constructor Pelicula
@@ -86,7 +85,6 @@ console.log(productosJSON)
        <td>${peliculaCarrito.precio}</td>
        
    </tr>`;
-   localStorage.setItem("carrito",JSON.stringify(carrito));
 
 }else {
     let posicion = carrito.findIndex(p => p.id == nuevaPelicula.id);
@@ -97,9 +95,9 @@ console.log(productosJSON)
         "success"
       );
     document.getElementById(nuevaPelicula.id).innerHTML=carrito[posicion].cantidad;
-    localStorage.setItem("carrito",JSON.stringify(carrito));
 }
 document.querySelector("#precioTotal").innerText=(`Total: $ ${calcularTotal()}`);
+localStorage.setItem("carrito",JSON.stringify(carrito));
 }
 
 //Funcion Suma Total
@@ -172,7 +170,7 @@ console.log (filtroPeliculas)
 
 //---------------------------------------------------
 
-//-botones del carrito
+//-Botones del carrito
 
 const btnfinalizar = document.getElementById('finalizar')
 btnfinalizar.addEventListener('click', ()=> {
